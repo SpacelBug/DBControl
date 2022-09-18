@@ -1,5 +1,5 @@
 # DBControl
-It`s my python module with class for different DB (MySQL, PostgreSQL)
+It`s my own python module with class for different DB (MySQL, PostgreSQL)
 ## Eng.
 ### Requirements.
 - PyMySQL
