@@ -38,7 +38,7 @@ class dataBase:
 			self.adress=adress
 			self.dbName=dbName
 		except Exception:
-			print("Ошибка инициализации параметров базы данных")
+			print("ERROR: init class")
 
 	def rowToSqlString(self, row):
 		counter=0
@@ -74,7 +74,7 @@ class dataBase:
 					  password=self.password,
 					  host=self.adress)
 		else:
-			print('Неподдерживаемая СУБД')
+			print('ERROR: unknown DB')
 		return(con)
 	'''
 	Создает шаблоны таблиц БД
@@ -136,7 +136,7 @@ class dataBase:
 			try:
 				return(self.dictOfTablesTemplates[table])
 			except:
-				print('Ошибка запроса')
+				print('ERROR: wrong query')
 	'''
 	Запрос на вставку
 
@@ -150,7 +150,7 @@ class dataBase:
 				#cursor.execute(f"INSERT INTO {table} ({columns}) VALUES ({listOfValues})")
 				print(f"INSERT INTO {table} VALUES ({(listOfValues)})")
 			except Exception:
-				print(f"Ошибка запроса\nINSERT INTO {table} VALUES ({(listOfValues)})")
+				print(f"ERROR: wrong query\nINSERT INTO {table} VALUES ({(listOfValues)})")
 	'''
 	Запрос на выборку
 
@@ -169,7 +169,7 @@ class dataBase:
 				for row in cursor:
 					listOfValues.append(row)
 			except Exception:
-				print(f"Ошибка запроса")
+				print(f"ERROR: wrong query")
 			return(listOfValues)
 	'''
 	Просто джоин
@@ -187,7 +187,7 @@ class dataBase:
 				for row in cursor:
 					listOfValues.append(row)
 			except Exception:
-				print(f"Ошибка запроса\n{query}")
+				print(f"ERROR: wrong query\n{query}")
 			return(listOfValues)
 	'''
 	Запрос на изменение
@@ -202,7 +202,7 @@ class dataBase:
 				cursor.execute(f"UPDATE {tableName} SET {target} = '{elem}' WHERE {where} = '{marker}';")
 				print(f"{tableName} обновлена")
 			except Exception:
-				print(f"Ошибка запроса\nUPDATE {tableName} SET {target} = '{elem}' WHERE {where} = '{marker}';")
+				print(f"ERROR: wrong query\nUPDATE {tableName} SET {target} = '{elem}' WHERE {where} = '{marker}';")
 				
 	def changeColValues(self, table, tableName, where, target):
 		for row in table:
@@ -215,7 +215,7 @@ class dataBase:
 						for row in cursor:
 							print(row)
 					except Exception:
-						print(f"Ошибка запроса\nSELECT {target} FROM {tableName} WHERE {where}={elem}")
+						print(f"ERROR: wrong query\nSELECT {target} FROM {tableName} WHERE {where}={elem}")
 	'''
 	(Не проверен!)
 	Запрос на удаление строк, выбираемых
@@ -236,9 +236,9 @@ class dataBase:
 						else:
 							print('Имя столбца не явл строкой')
 				except Exception:
-					print("Ошибка запроса")
+					print("ERROR: wrong query")
 		else:
-			print("<couple>key не является парой")
+			print("ERROR: <couple>key isnt a couple")
 	'''
 	Вытаскиваем на импорт все данные,
 	или данные по одной таблице
