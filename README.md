@@ -4,7 +4,7 @@ It`s my own python module with class for different DB (MySQL, PostgreSQL)
 ### Requirements.
 - PyMySQL
 - Psycopg2
-### Methods:
+### Methods and funtions:
 
 List of methods from dataBase class:
 
@@ -22,6 +22,13 @@ List of methods from dataBase class:
 - importData
 - createTableFromTemplate
 
+List of functions:
+
+- toTimestamp (table, pos)
+  Change all values (///) in targeted column  
+- conColumns (table, pos1, pos2)
+  Concatenate values of column numer "pos1" and column number "pos2" 
+   
 ## Rus.
 ### Требования.
 - PyMySQL
