@@ -39,7 +39,7 @@ List of functions:
 
 Список методов класса dataBase:
 
-- connect
+- connect 
 - createTemplatesForTables
 - pythonSQLTable
 - showTablesTemplates
@@ -52,3 +52,10 @@ List of functions:
 - exportData
 - importData
 - createTableFromTemplate
+
+List of functions:
+
+- toTimestamp (table, pos)
+  Меняет все значения (///) в указанной колонке  
+- conColumns (table, pos1, pos2)
+  Складывает значения в колонке "pos1" и колонке "pos2" 
