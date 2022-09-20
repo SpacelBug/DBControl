@@ -22,6 +22,11 @@ class dataTable:
             count = len(self.tableData)
         for indx in range(count):
             print(self.tableData[indx])
+    def getRow (self, rowIndx=''):
+        try:
+            return(self.tableData[rowIndx])
+        except:
+            print(f"ERROR: check parameters of fuction")
     def showRow (self, rowIndx=''):
         try:
             print(self.tableData[rowIndx])
@@ -31,8 +36,6 @@ class dataTable:
         for row in self.tableData:
             secoundElem=row.pop(secoundPosIndex)
             row[firsPosIndex]=f'{row[firsPosIndex]} {str(secoundElem)}'
-    def dataToJson(): 
-        pass
 
 class dataBase:
     '''
@@ -124,7 +127,7 @@ class dataBase:
         with self.connect() as connection:
             mainCur = connection.cursor()
             if(self.DBMSname=="postgresql"):
-                mainCur.execute(f"SELECT column_name FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = N'{tableName}'")
+                mainCur.execute(f"SELECT column_name FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '{tableName}'")
             else:
                 mainCur.execute(f"SHOW COLUMNS FROM {tableName}")
             for colName in mainCur:
@@ -150,7 +153,7 @@ class dataBase:
                 print(f'{template}{self.dictOfTablesTemplates[template]}')
         else:
             try:
-                return(self.dictOfTablesTemplates[table])
+                print(self.dictOfTablesTemplates[table])
             except:
                 print(f"ERROR: cant find table name: {table}")
     '''
