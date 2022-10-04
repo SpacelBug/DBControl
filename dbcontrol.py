@@ -37,6 +37,9 @@ class dataTable:
             secoundElem=row.pop(secoundPosIndex)
             row[firsPosIndex]=f'{row[firsPosIndex]} {str(secoundElem)}'
 
+'''
+Класс для работы с базами данных
+'''
 class dataBase:
     '''
     Инициализатор/Конструктор класса
