@@ -1,6 +1,42 @@
 import pymysql
 import psycopg2
 
+import datetime
+import time
+
+def toTimestamp(table, pos):
+    for row in table:
+        try:
+            row[pos]=time.mktime(time.strptime(row[pos], "%Y-%m-%d %H:%M"))
+        except Exception:
+            row[pos]=0.0
+    return table
+
+class dataTable:
+    def __init__(self, name='', data=[]):
+        self.tableName = name
+        self.tableData = data
+        self.tableSize = {"rows": len(self.tableData), "cols": len(self.tableData)}
+    def showData (self, count=0):
+        if count == 0:
+            count = len(self.tableData)
+        for indx in range(count):
+            print(self.tableData[indx])
+    def getRow (self, rowIndx=''):
+        try:
+            return(self.tableData[rowIndx])
+        except:
+            print(f"ERROR: check parameters of fuction")
+    def showRow (self, rowIndx=''):
+        try:
+            print(self.tableData[rowIndx])
+        except:
+            print(f"ERROR: check parameters of fuction")
+    def conColumns(self, firsPosIndex, secoundPosIndex):
+        for row in self.tableData:
+            secoundElem=row.pop(secoundPosIndex)
+            row[firsPosIndex]=f'{row[firsPosIndex]} {str(secoundElem)}'
+
 class dataBase:
 	'''
 	Инициализатор/Конструктор класса
