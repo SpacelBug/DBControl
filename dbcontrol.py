@@ -198,7 +198,7 @@ class dataBase:
 						listOfValues.append(row[0])	
 			except Exception:
 				print(f'Ошибка запроса: SELECT ')
-			return(listOfValues)
+			return(dataTable(table, listOfValues))
 	'''
 	Просто джоин
 	'''
