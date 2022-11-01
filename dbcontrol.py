@@ -93,8 +93,7 @@ class dataBase:
 					  user=self.login,
 					  password=self.password,
 					  host=self.adress,
-					  port=self.port
-					  )
+					  port=self.port)
 		else:
 			print('Неподдерживаемая СУБД')
 		return(con)
@@ -188,14 +187,11 @@ class dataBase:
 			cursor=connection.cursor()
 			try:
 				if (self.DBMSname=='postgresql'):
-					cursor.execute(f"SELECT {','.join(columns)} FROM {self.schemasName}\"{table}\" {condition}")
+					cursor.execute(f"SELECT {columns} FROM {self.schemasName}\"{table}\" {condition}")
 				else:
-					cursor.execute(f"SELECT {','.join(columns)} FROM {table} {condition}")
+					cursor.execute(f"SELECT {columns} FROM {table} {condition}")
 				for row in cursor:
-					if(columns=='*'):
 						listOfValues.append(row)
-					else:
-						listOfValues.append(row[0])	
 			except Exception:
 				print(f'Ошибка запроса: SELECT ')
 			return(listOfValues)
