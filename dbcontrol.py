@@ -191,7 +191,7 @@ class dataBase:
 				else:
 					cursor.execute(f"SELECT {columns} FROM {table} {condition}")
 				for row in cursor:
-						listOfValues.append(row)
+						listOfValues.append(list(row))
 			except Exception:
 				print(f'Ошибка запроса: SELECT ')
 			return(listOfValues)
