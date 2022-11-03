@@ -158,8 +158,10 @@ class dataBase:
                 print(self.dictOfTablesTemplates[table])
             except:
                 print('Ошибка запроса')
-
-    def getTableNames():
+    '''
+    Вытягивает названия таблиц
+    '''
+    def getTableNames(self):
         listOfTableNames=[]
         for template in self.dictOfTablesTemplates:
             listOfTableNames.append(template)
