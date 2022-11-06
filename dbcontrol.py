@@ -53,6 +53,7 @@ class dataTable:
 class dataBase:
     '''
     Инициализатор/Конструктор класса
+<<<<<<< HEAD
 
     Параменты на вход:
     -Имя СУБД
@@ -246,45 +247,37 @@ class dataBase:
     '''
     Запрос на изменение
 
-    в таблице tableName, меняет target
-    на elem где where = marker
-
-    Только MySQL
-    '''
-    def update(self, tableName, elem, target, marker):
-        with self.connect() as connection:
-            cursor=connection.cursor()
-            try:
-                cursor.execute(f"UPDATE {tableName} SET {target} = '{elem}' WHERE {where} = '{marker}';")
-                print(f"{tableName} обновлена")
-            except Exception:
-                print(f"Ошибка запроса\nUPDATE {tableName} SET {target} = '{elem}' WHERE {where} = '{marker}';")
-    '''
-    Не помню чем это должно было быть
-    '''			
-    def changeColValues(table, tableName, where, target):
-        for row in table:
-            counter=0
-            for elem in row:
-                with self.connect() as connection:
-                    cursor=connection.cursor()
-                    try:
-                        cursor.execute(f"SELECT {target} FROM {tableName} WHERE {where}={elem}")
-                        for row in cursor:
-                            print(row)
-                    except Exception:
-                        print(f"Ошибка запроса\nSELECT {target} FROM {tableName} WHERE {where}={elem}")
-    '''
-    (Не проверен!)
-    Запрос на удаление строк, выбираемых
-    согласно couple
+	в таблице tableName, меняет target
+	на elem где where = marker
+	'''
+	def update(self, tableName, elem, target, marker):
+		with self.connect() as connection:
+			cursor=connection.cursor()
+			try:
+				cursor.execute(f"UPDATE {tableName} SET {target} = '{elem}' WHERE {where} = '{marker}';")
+				print(f"{tableName} обновлена")
+			except Exception:
+				print(f"Ошибка запроса\nUPDATE {tableName} SET {target} = '{elem}' WHERE {where} = '{marker}';")
+				
+	def changeColValues(table, tableName, where, target):
+		for row in table:
+			counter=0
+			for elem in row:
+				with self.connect() as connection:
+					cursor=connection.cursor()
+					try:
+						cursor.execute(f"SELECT {target} FROM {tableName} WHERE {where}={elem}")
+						for row in cursor:
+							print(row)
+					except Exception:
+						print(f"Ошибка запроса\nSELECT {target} FROM {tableName} WHERE {where}={elem}")
+	'''
+	(Не проверен!)
+	Запрос на удаление строк, выбираемых
+	согласно couple
 
     couple = {column:value}
     column - должна быть строкой
-
-    Пока выводит только sql запросы
-
-    Только для MySQL
     '''
     def delete(self, table, couple):
         if (len(couple)==1):
@@ -305,19 +298,24 @@ class dataBase:
     Вытаскиваем на импорт все данные,
     или данные по одной таблице
 
-    (пока по одной только)
-    '''
-    def exportData(self, fromTable=''):
-        listOfValues=[]
-        mainCur=self.select(fromTable, self.showTablesTemplates(fromTable))
-        for row in mainCur:
-            listOfValues.append(list(row))
-        return(listOfValues)
-    '''
-    Экспортируем данные в таблицу(цы)
-
-    Пока выводит только SQL запросы
-    '''
-    def importData(self, listOfValues, tabelName, colNames=''):
-        for row in listOfValues:
-            print(f"INSERT INTO {tabelName} ({ ','.join(colNames) }) values ({self.rowToSqlString(row)})")
+	(пока по одной только)
+	'''
+	def exportData(self, fromTable=''):
+		listOfValues=[]
+		mainCur=self.select(fromTable, self.showTablesTemplates(fromTable))
+		for row in mainCur:
+			listOfValues.append(list(row))
+		return(listOfValues)
+	'''
+	Экспортируем данные в таблицу(цы)
+	'''
+	def importData(self, listOfValues, tabelName, colNames=''):
+		for row in listOfValues:
+			print(f"INSERT INTO {tabelName} ({ ','.join(colNames) }) values ({self.rowToSqlString(row)})")
+	'''
+	Придется для этого метода переделать метод с шаблонами,
+	дабы туда еще и типы переменных записывать
+	'''
+	def createTableFromTemplate(self, template):
+		print(template)
+		pass
