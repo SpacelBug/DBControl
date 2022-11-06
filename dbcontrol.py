@@ -197,31 +197,11 @@ class dataBase:
             except Exception:
                 print(f"Ошибка запроса\nINSERT INTO {table} ({(columns)}) VALUES ({(listOfValues)})")
     '''
-    Запрос на выборку
-
-    condition - для добавления условия
-    (Придется писать ручками)
-
-    (Если не указанны имена полей,
-    выбирает все)
+    Создает таблицу на основе класса
     '''
-    def select(self, table, columns='*', condition=''):
-        listOfValues=[]
-        with self.connect() as connection:
-            cursor=connection.cursor()
-            try:
-                if (self.DBMSname=='postgresql'):
-                    cursor.execute(f"SELECT {','.join(columns)} FROM {self.schemasName}\"{table}\" {condition}")
-                else:
-                    cursor.execute(f"SELECT {','.join(columns)} FROM {table} {condition}")
-                for row in cursor:
-                    if(columns=='*'):
-                        listOfValues.append(row)
-                    else:
-                        listOfValues.append(row[0])	
-            except Exception:
-                print(f'Ошибка запроса: SELECT ')
-            return(dataTable(table, listOfValues))
+    def createTable(self, table, columns='*', condition=''):
+        listOfValues=self.select(self, table, columns, condition)
+        return(dataTable(table, listOfValues))
     '''
     Просто джоин
 
