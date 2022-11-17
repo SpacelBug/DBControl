@@ -221,11 +221,12 @@ class dataBase:
 
     Пока выводит просто SQL запросы
     '''
-    def importData(self, tabelName, colNames='', listOfValues,):
-        listOfQueries = []
-        for row in listOfValues:
-            for value in row:
-                if (value == ''):
-                    value = 'Null'
-            listOfQueries.append(f"INSERT INTO \"{tabelName}\" ({ ','.join(colNames) }) values ({row})")
-        return listOfQueries
+    def importData(self, tabelName, colNames, listOfValues,):
+        for i in range(len(listOfValues)):
+            for j in range(len(listOfValues[i])):
+                if listOfValues[i][j] == '':
+                    listOfValues[i][j] = 'Null'
+            if self.dbName=='postgresql':
+                print(f"INSERT INTO {self.schemasName}\"{tabelName}\" ({ ','.join(colNames) }) values ({','.join(listOfValues[i])})")
+            else:
+                print(f"INSERT INTO {tabelName} ({','.join(colNames)}) values ({','.join(listOfValues[i])})")
