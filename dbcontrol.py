@@ -223,6 +223,27 @@ class dataBase:
                 print(f"Ошибка запроса\n{query}")
             return(listOfValues)
     '''
+    Запрос на выборку
+    condition - для добавления условия
+    (Придется писать ручками)
+    (Если не указанны имена полей,
+    выбирает все)
+    '''
+    def select(self, table, columns='*', condition=''):
+        listOfValues = []
+        with self.connect() as connection:
+            cursor = connection.cursor()
+            try:
+                if (self.DBMSname == 'postgresql'):
+                    cursor.execute(f"SELECT {columns} FROM {self.schemasName}\"{table}\" {condition}")
+                else:
+                    cursor.execute(f"SELECT {columns} FROM {table} {condition}")
+                for row in cursor:
+                    listOfValues.append(list(row))
+            except Exception:
+                print(f'Ошибка запроса: SELECT ')
+            return (listOfValues)
+    '''
     Запрос на изменение
 
     в таблице tableName, меняет target
@@ -297,6 +318,11 @@ class dataBase:
 
     Пока выводит просто SQL запросы
     '''
-    def importData(self, listOfValues, tabelName, colNames=''):
+    def importData(self, tabelName, listOfValues, colNames=''):
+        listOfQueries = []
         for row in listOfValues:
-            print(f"INSERT INTO {tabelName} ({ ','.join(colNames) }) values ({self.rowToSqlString(row)})")
+            for value in row:
+                if (value == ''):
+                    value = 'Null'
+            listOfQueries.append(f"INSERT INTO \"{tabelName}\" ({ ','.join(colNames) }) values ({row})")
+        return listOfQueries
