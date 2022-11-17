@@ -1,8 +1,13 @@
 class dataTable:
     def __init__(self, name='', data=[]):
         self.tableName = name
-        self.tableData = data
+        self.tableData = self.__data_to_str__(data)
         self.tableSize = {"rows": len(self.tableData), "cols": len(self.tableData)}
+    def __data_to_str__(self, data):
+        for i in range(len(data)):
+            for j in range(len(data[i])):
+                data[i][j]=str(data[i][j])
+        return(data)
     def showData (self, count=0):
         if count == 0:
             count = len(self.tableData)
@@ -27,3 +32,6 @@ class dataTable:
         for row in self.tableData:
             secoundElem=row.pop(secoundPosIndex)
             row[firsPosIndex]=f'{row[firsPosIndex]} {str(secoundElem)}'
+    def colToStr(self, pos):
+        for i in range(len(self.tableData)):
+            self.tableData[i][pos] = f"'{self.tableData[i][pos]}'"
