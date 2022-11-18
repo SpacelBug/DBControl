@@ -30,6 +30,8 @@ class dataBase:
     -Пароль
     -Адрес
     -Имя БД
+    -Порт
+    -схема (для postgres)
     '''
     def __init__(self, nameOfDBMS, login, password, adress, dbName, port, schemasName=''):
         try:
