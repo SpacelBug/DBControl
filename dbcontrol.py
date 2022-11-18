@@ -1,7 +1,7 @@
 import pymysql
 import psycopg2
 
-import datetime
+import sys
 import time
 
 from table import dataTable
@@ -218,16 +218,17 @@ class dataBase:
     Пока выводит просто SQL запросы
     '''
     def importData(self, tabelName, colNames, listOfValues,):
+        query = ''
+        for i in range(len(listOfValues)):
+            for j in range(len(listOfValues[i])):
+                if listOfValues[i][j] == '':
+                    listOfValues[i][j] = 'Null'
         with self.connect() as connection:
             cursor = connection.cursor()
-            for i in range(len(listOfValues)):
-                for j in range(len(listOfValues[i])):
-                    if listOfValues[i][j] == '':
-                        listOfValues[i][j] = 'Null'
-                try:
-                    if self.DBMSname == 'postgresql':
-                        cursor.execute(f"INSERT INTO {self.schemasName}.\"{tabelName}\" ({ ','.join(colNames) }) values ({','.join(listOfValues[i])})")
-                    else:
-                        cursor.execute(f"INSERT INTO {tabelName} ({','.join(colNames)}) values ({','.join(listOfValues[i])})")
-                except:
-                    print("Ошибка запроса")
+            for row in listOfValues:
+                if self.DBMSname == 'postgresql':
+                    query = f"INSERT INTO {self.schemasName}.\"{tabelName}\" ({ ','.join(colNames) }) values ({','.join(row)})"
+                else:
+                    query = f"INSERT INTO {tabelName} ({','.join(colNames)}) values ({','.join(row)})"
+                cursor.execute(query)
+        print('Import complete')
