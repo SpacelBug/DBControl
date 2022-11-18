@@ -8,54 +8,56 @@ It`s my own python module with class for different DB (MySQL, PostgreSQL)
 
 List of methods from dataBase class:
 
-- connect
 - createTemplatesForTables
-- pythonSQLTable
 - showTablesTemplates
-- insert
 - select
 - update
-- join
-- changeColValues
+- insert
 - delete
-- exportData
+- join
 - importData
-- createTableFromTemplate
+
+List of methods from dataTable class:
+
+- showData
+- getRow
+- getData
+- showRow
+- conColumns
+- colToStr
 
 List of functions:
 
 - toTimestamp (table, pos)
   Change all values (///) in targeted column  
-- conColumns (table, pos1, pos2)
-  Concatenate values of column numer "pos1" and column number "pos2" 
    
 ## Rus.
 ### Требования.
 - PyMySQL
 - Psycopg2
-### Методы:
-
-### Methods:
+### Методы и функции:
 
 Список методов класса dataBase:
 
-- connect 
 - createTemplatesForTables
-- pythonSQLTable
 - showTablesTemplates
-- insert
 - select
 - update
-- join
-- changeColValues
+- insert
 - delete
-- exportData
+- join
 - importData
-- createTableFromTemplate
 
-List of functions:
+Список методов класса dataTable:
+
+- showData
+- getRow
+- getData
+- showRow
+- conColumns
+- colToStr
+
+Список функций:
 
 - toTimestamp (table, pos)
   Меняет все значения (///) в указанной колонке  
-- conColumns (table, pos1, pos2)
-  Складывает значения в колонке "pos1" и колонке "pos2" 
