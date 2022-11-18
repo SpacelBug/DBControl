@@ -122,7 +122,7 @@ class dataBase:
             cursor = connection.cursor()
             try:
                 if (self.DBMSname == 'postgresql'):
-                    cursor.execute(f"SELECT {columns} FROM {self.schemasName}\"{table}\" {condition}")
+                    cursor.execute(f"SELECT {columns} FROM {self.schemasName}.\"{table}\" {condition}")
                 else:
                     cursor.execute(f"SELECT {columns} FROM {table} {condition}")
                 for row in cursor:
@@ -218,11 +218,16 @@ class dataBase:
     Пока выводит просто SQL запросы
     '''
     def importData(self, tabelName, colNames, listOfValues,):
-        for i in range(len(listOfValues)):
-            for j in range(len(listOfValues[i])):
-                if listOfValues[i][j] == '':
-                    listOfValues[i][j] = 'Null'
-            if self.dbName=='postgresql':
-                print(f"INSERT INTO {self.schemasName}\"{tabelName}\" ({ ','.join(colNames) }) values ({','.join(listOfValues[i])})")
-            else:
-                print(f"INSERT INTO {tabelName} ({','.join(colNames)}) values ({','.join(listOfValues[i])})")
+        with self.connect() as connection:
+            cursor = connection.cursor()
+            for i in range(len(listOfValues)):
+                for j in range(len(listOfValues[i])):
+                    if listOfValues[i][j] == '':
+                        listOfValues[i][j] = 'Null'
+                try:
+                    if self.DBMSname == 'postgresql':
+                        cursor.execute(f"INSERT INTO {self.schemasName}.\"{tabelName}\" ({ ','.join(colNames) }) values ({','.join(listOfValues[i])})")
+                    else:
+                        cursor.execute(f"INSERT INTO {tabelName} ({','.join(colNames)}) values ({','.join(listOfValues[i])})")
+                except:
+                    print("Ошибка запроса")
