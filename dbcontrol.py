@@ -189,12 +189,6 @@ class dataBase:
         else:
             print("<couple>key не является парой")
     '''
-    Создает таблицу на основе класса
-    '''
-    def createTable(self, table, columns='*', condition=''):
-        listOfValues=self.select(self, table, columns, condition)
-        return(dataTable(table, listOfValues))
-    '''
     Просто джоин
 
     Вроде как работал но нужно проверить
