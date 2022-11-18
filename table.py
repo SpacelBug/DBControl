@@ -35,3 +35,6 @@ class dataTable:
     def colToStr(self, pos):
         for i in range(len(self.tableData)):
             self.tableData[i][pos] = f"'{self.tableData[i][pos]}'"
+    def removeCol(self, pos):
+        for i in range(len(self.tableData)):
+            del self.tableData[i][pos]
