@@ -159,8 +159,12 @@ class dataBase:
         with self.connect() as connection:
             cursor=connection.cursor()
             try:
-                #cursor.execute(f"INSERT INTO {table} ({columns}) VALUES ({listOfValues})")
-                print(f"INSERT INTO {table} ({(columns)}) VALUES ({(listOfValues)})")
+                if self.DBMSname == 'postgresql':
+                    # cursor.execute(f"INSERT INTO {table} ({columns}) VALUES ({listOfValues})")
+                    print(f"INSERT INTO {self.schemasName}."{table}" ({(columns)}) VALUES ({(listOfValues)})")
+                else:
+                    #cursor.execute(f"INSERT INTO {table} ({columns}) VALUES ({listOfValues})")
+                    print(f"INSERT INTO {table} ({(columns)}) VALUES ({(listOfValues)})")
             except Exception:
                 print(f"Ошибка запроса\nINSERT INTO {table} ({(columns)}) VALUES ({(listOfValues)})")
     '''
