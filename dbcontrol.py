@@ -4,7 +4,7 @@ import psycopg2
 import sys
 import time
 
-from table import dataTable
+from DBControl.table import dataTable
 
 '''
 Переводит время в формате "%Y-%m-%d %H:%M" в "Timestamp" 
@@ -122,13 +122,14 @@ class dataBase:
             cursor = connection.cursor()
             try:
                 if (self.DBMSname == 'postgresql'):
-                    cursor.execute(f"SELECT {columns} FROM {self.schemasName}.\"{table}\" {condition}")
+                    query = f"SELECT {','.join(columns)} FROM {self.schemasName}.\"{table}\" {condition}"
                 else:
-                    cursor.execute(f"SELECT {columns} FROM {table} {condition}")
+                    query = f"SELECT {columns} FROM {table} {condition}"
+                cursor.execute(query)
                 for row in cursor:
                     listOfValues.append(list(row))
             except Exception:
-                print(f'Ошибка запроса: SELECT ')
+                print(f'Ошибка запроса: SELECT \n {query}')
             return (dataTable(table, listOfValues))
     '''
     Запрос на изменение
@@ -161,7 +162,7 @@ class dataBase:
             try:
                 if self.DBMSname == 'postgresql':
                     # cursor.execute(f"INSERT INTO {table} ({columns}) VALUES ({listOfValues})")
-                    print(f"INSERT INTO {self.schemasName}."{table}" ({(columns)}) VALUES ({(listOfValues)})")
+                    print(f"INSERT INTO {self.schemasName}.\"{table}\" ({(columns)}) VALUES ({(listOfValues)})")
                 else:
                     #cursor.execute(f"INSERT INTO {table} ({columns}) VALUES ({listOfValues})")
                     print(f"INSERT INTO {table} ({(columns)}) VALUES ({(listOfValues)})")
