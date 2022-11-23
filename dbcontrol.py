@@ -155,19 +155,19 @@ class dataBase:
 
     Только MySQL
     '''
-    def insert(self, table, columns, listOfValues):
-        print()
+    def insert(self, table, columns, list_of_values):
+        query = ''
         with self.connect() as connection:
-            cursor=connection.cursor()
+            cursor = connection.cursor()
             try:
                 if self.DBMSname == 'postgresql':
-                    # cursor.execute(f"INSERT INTO {table} ({columns}) VALUES ({listOfValues})")
-                    print(f"INSERT INTO {self.schemasName}.\"{table}\" ({(columns)}) VALUES ({(listOfValues)})")
+                    query = f"INSERT INTO {self.schemasName}.\"{table}\" ({','.join(columns)}) VALUES ({','.join(list_of_values)})"
                 else:
-                    #cursor.execute(f"INSERT INTO {table} ({columns}) VALUES ({listOfValues})")
-                    print(f"INSERT INTO {table} ({(columns)}) VALUES ({(listOfValues)})")
+                    query = f"INSERT INTO {self.schemasName}.\"{table}\" ({','.join(columns)}) VALUES ({','.join(list_of_values)})"
+                print(query)
+                # cursor.execute(query)
             except Exception:
-                print(f"Ошибка запроса\nINSERT INTO {table} ({(columns)}) VALUES ({(listOfValues)})")
+                print(f'Ошибка запроса\n{query}')
     '''
     (Не проверен!)
     Запрос на удаление строк, выбираемых
